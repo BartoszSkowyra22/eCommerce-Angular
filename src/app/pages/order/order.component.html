@@ -1,0 +1,61 @@
+<h2 *ngIf="items.length > 0">Podsumowanie zamówienia</h2>
+<div *ngFor="let item of items" class="order-summary-item">
+  <p>{{ item.product.name }} - Ilość: {{ item.quantity }} -
+    Łącznie: {{ item.product.price * item.quantity | currency: 'PLN':'symbol-narrow' }}</p>
+</div>
+
+<form *ngIf="items.length > 0" [formGroup]="orderForm" (ngSubmit)="onSubmit()" class="order-form">
+  <div class="form-grid">
+    <div class="form-group">
+      <label>Imię:</label>
+      <input formControlName="firstName" type="text" class="form-input"/>
+      <div *ngIf="submitted && f['firstName'].errors" class="error-message">Imię jest wymagane</div>
+    </div>
+
+    <div class="form-group">
+      <label>Nazwisko:</label>
+      <input formControlName="lastName" type="text" class="form-input"/>
+      <div *ngIf="submitted && f['lastName'].errors" class="error-message">Nazwisko jest wymagane</div>
+    </div>
+
+    <div class="form-group">
+      <label>Telefon:</label>
+      <input formControlName="phone" type="text" class="form-input"/>
+      <div *ngIf="submitted && f['phone'].errors" class="error-message">Numer telefonu jest wymagany i musi mieć 9
+        cyfr
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Ulica:</label>
+      <input formControlName="street" type="text" class="form-input"/>
+      <div *ngIf="submitted && f['street'].errors" class="error-message">Ulica jest wymagana</div>
+    </div>
+
+    <div class="form-group">
+      <label>Nr domu:</label>
+      <input formControlName="houseNumber" type="text" class="form-input"/>
+      <div *ngIf="submitted && f['houseNumber'].errors" class="error-message">Nr domu jest wymagany</div>
+    </div>
+
+    <div class="form-group">
+      <label>Kod pocztowy:</label>
+      <input formControlName="postalCode" type="text" class="form-input"/>
+      <div *ngIf="submitted && f['postalCode'].errors" class="error-message">Kod pocztowy jest wymagany w formacie
+        XX-XXX
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Miasto:</label>
+      <input formControlName="city" type="text" class="form-input"/>
+      <div *ngIf="submitted && f['city'].errors" class="error-message">Miasto jest wymagane</div>
+    </div>
+  </div>
+
+  <button type="submit" class="btn-submit">Złóż zamówienie</button>
+</form>
+
+<div *ngIf="items.length == 0" class="empty-cart">
+  <h2>Wybierz produkty, aby je zamówić</h2>
+</div>

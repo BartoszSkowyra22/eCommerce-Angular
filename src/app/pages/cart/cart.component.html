@@ -1,0 +1,40 @@
+<div class="cart">
+  <table *ngIf="items.length > 0" class="cart-table">
+    <thead>
+    <tr>
+      <th>Nazwa produktu</th>
+      <th>Cena jednostkowa</th>
+      <th>Ilość</th>
+      <th>Łącznie</th>
+      <th>Akcje</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of items">
+      <td>{{ item.product.name }}</td>
+      <td>{{ item.product.price | currency: 'PLN':'symbol-narrow' }}</td>
+      <td>
+        <div class="quantity-controls">
+          <button (click)="decreaseQuantity(item)">-</button>
+          <input type="number" [(ngModel)]="item.quantity" (input)="calculateTotal()" min="1">
+          <button (click)="increaseQuantity(item)">+</button>
+        </div>
+      </td>
+      <td>{{ item.product.price * item.quantity | currency: 'PLN':'symbol-narrow' }}</td>
+      <td>
+        <button class="btn-remove" (click)="removeItem(item)">Usuń</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="items.length > 0" class="total-summary">
+    <h3>Suma całkowita: {{ totalPrice | currency: 'PLN':'symbol-narrow' }}</h3>
+    <a [routerLink]="['/order']" class="btn btn-primary">Przejdź do zamówienia</a>
+  </div>
+
+  <div *ngIf="items.length == 0" class="empty-cart">
+    <h2>Koszyk jest pusty</h2>
+  </div>
+</div>
+

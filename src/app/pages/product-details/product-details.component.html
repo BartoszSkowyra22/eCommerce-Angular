@@ -1,0 +1,16 @@
+<div *ngIf="product" class="product-details">
+  <div class="back-to-home"><a [routerLink]="['/']">< Powrót</a></div>
+  <div class="product-image">
+    <img [src]="product.imageUrl" alt="{{ product.name }}">
+  </div>
+  <div class="product-info">
+    <h2>{{ product.name }}</h2>
+    <p>{{ product.shortDescription }}</p>
+    <p>{{ product.longDescription }}</p>
+    <p class="price">{{ product.price | currency: 'PLN':'symbol-narrow' }}</p>
+    <button (click)="addToCart(product)">Dodaj do koszyka</button>
+  </div>
+</div>
+
+
+

@@ -1,0 +1,25 @@
+<div class="filter-sort">
+  <div class="filter-section">
+    <input type="text" [(ngModel)]="filterText" placeholder="Filtruj po nazwie">
+    <button (click)="filterProducts()">Filtruj</button>
+  </div>
+
+  <div class="sort-section">
+    <button (click)="changeSort('name')">
+      Sortuj po nazwie {{ sortField === 'name' ? (sortDirection === 'asc' ? 'rosnąco' : 'malejąco') : '' }}
+    </button>
+    <button (click)="changeSort('price')">
+      Sortuj po cenie {{ sortField === 'price' ? (sortDirection === 'asc' ? 'rosnąco' : 'malejąco') : '' }}
+    </button>
+  </div>
+</div>
+
+<div class="product-container">
+  <div *ngFor="let product of filteredProducts" class="product-card">
+    <img [src]="product.imageUrl" alt="{{ product.name }}">
+    <h2>{{ product.name }}</h2>
+    <p>{{ product.shortDescription }}</p>
+    <p>{{ product.price | currency: 'PLN':'symbol-narrow' }}</p>
+    <a [routerLink]="['/product', product.id]">Szczegóły</a>
+  </div>
+</div>
